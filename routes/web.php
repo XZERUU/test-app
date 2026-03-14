@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Notifications\UserNotification;
@@ -21,15 +22,23 @@ Route::middleware('auth')->group(function () {
 
 });
 
-/* Test notification route */
+
+/* Activity 5 - Notification test */
 Route::get('/notify', function () {
 
     $user = User::first();
 
     $user->notify(new UserNotification());
 
-    return "Notification sent successfully";
+    return view('notifications.notify');
 
 });
+
+
+/* Activity 6 - Laravel Eloquent ORM */
+Route::get('/users', [UserController::class, 'index']);
+
+Route::get('/users/{id}', [UserController::class, 'show']);
+
 
 require __DIR__.'/auth.php';
